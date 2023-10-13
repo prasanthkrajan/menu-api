@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+pizzas = [
+	{ name: 'Hawaiian Chicken', price: 25.00 },
+	{ name: 'Indian Tandoori', price: 28.50 },
+	{ name: 'Vege Delight', price: 20.00 },
+	{ name: 'Seafood Surprise', price: 25.50 }
+]
+
+pizzas.each do |pizza|
+	Menu.create(name: pizza[:name], price: pizza[:price])
+end
