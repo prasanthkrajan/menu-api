@@ -16,7 +16,8 @@ RSpec.describe Api::V1::MenusController, type: :routing do
   end
 
   it 'does not support other generic routes' do
-    expect(get("/#{base_folder}/menu")).not_to be_routable
+    expect(post("/#{base_folder}/menus")).not_to be_routable
+    expect(get("/#{base_folder}/menus/1")).not_to be_routable
     expect(delete("/#{base_folder}/menus/1")).not_to be_routable
     expect(put("/#{base_folder}/menus/1")).not_to be_routable
     expect(patch("/#{base_folder}/menus/1")).not_to be_routable
