@@ -1,6 +1,6 @@
 class Api::V1::MenusController < ApplicationController
 	def index
-		@menus = if params[:q].present?
+		@menus ||= if params[:q].present?
 			Menu.where("name ILIKE ?", "%#{params[:q]}%")
 		elsif params[:sort_by].present?
 			Menu.order("#{params[:sort_by]} #{params[:order_by]}")
