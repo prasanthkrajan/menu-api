@@ -1,6 +1,7 @@
 class Api::V1::MenusController < Api::V1::BaseController	
 	def index
-		render json: data_scope.sorted_and_ordered_by(sort_by_params, order_by_params)
+		@menus = data_scope.sorted_and_ordered_by(sort_by_params, order_by_params)
+		render json: @menus
 	end
 
 	private
@@ -18,14 +19,12 @@ class Api::V1::MenusController < Api::V1::BaseController
 	end
 
 	def data_scope
-		if search_params 
-			Menu.scoped_by_name(search_params)
-		else
-			default_scope
-		end
+		return default_data_scope unless search_params
+		
+		Menu.scoped_by_name(search_params)
 	end
 
-	def default_scope
+	def default_data_scope
 		Menu
 	end
 end
