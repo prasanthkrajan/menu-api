@@ -1,4 +1,4 @@
-class Api::V1::MenusController < ApplicationController
+class Api::V1::MenusController < Api::V1::BaseController
 	DEFAULT_ORDER_BY = 'asc'
 	DEFAULT_SORT_BY = 'name'
 	
@@ -11,8 +11,6 @@ class Api::V1::MenusController < ApplicationController
 		end
 
 		render json: @menus
-	rescue ActiveRecord::StatementInvalid
-		render json: 'Error', status: :unprocessable_entity
 	end
 
 	private
