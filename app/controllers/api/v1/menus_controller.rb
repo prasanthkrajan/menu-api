@@ -1,16 +1,6 @@
-class Api::V1::MenusController < Api::V1::BaseController
-	DEFAULT_ORDER_BY = 'asc'
-	DEFAULT_SORT_BY = 'name'
-	
+class Api::V1::MenusController < Api::V1::BaseController	
 	def index
-		@menus = if search_params
-			Menu.where("name ILIKE ?", "%#{search_params}%")
-					.order("#{sort_by_params} #{order_by_params}")
-		else
-			Menu.order("#{sort_by_params} #{order_by_params}")
-		end
-
-		render json: @menus
+		render json: data_scope.sorted_and_ordered_by(sort_by_params, order_by_params)
 	end
 
 	private
@@ -20,10 +10,14 @@ class Api::V1::MenusController < Api::V1::BaseController
 	end
 
 	def order_by_params
-		params[:order_by].presence || DEFAULT_ORDER_BY
+		params[:order_by].presence
 	end
 
 	def sort_by_params
-		params[:sort_by].presence || DEFAULT_SORT_BY
+		params[:sort_by].presence
+	end
+
+	def data_scope
+		search_params ? Menu.scoped_by_name(search_params) : Menu
 	end
 end
