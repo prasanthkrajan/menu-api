@@ -1,7 +1,7 @@
 class Api::V1::MenusController < Api::V1::BaseController	
 	def index
 		@menus = data_scope.sorted_and_ordered_by(sort_by_params, order_by_params)
-		render json: @menus
+		render json: @menus, status: :ok
 	end
 
 	private

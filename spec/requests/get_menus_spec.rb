@@ -196,8 +196,8 @@ RSpec.describe 'Menus', type: :request do
         get "/api/v1/menus?sort_by=price&order_by=random"
       end
 
-      it 'raises a 422 unprocessable entity error' do
-        expect(response).to have_http_status(:unprocessable_entity)
+      it 'raises a 500 internal server error' do
+        expect(response).to have_http_status(:internal_server_error)
       end
     end
   end

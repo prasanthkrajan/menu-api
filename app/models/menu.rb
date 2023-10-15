@@ -4,5 +4,10 @@ class Menu < ApplicationRecord
 	DEFAULT_SORT_BY = 'name'
 
 	scope :scoped_by_name, -> (name) { where("name ILIKE ?", "%#{name}%") }
-	scope :sorted_and_ordered_by, -> (sort_by, order_by) { order("#{ sort_by || DEFAULT_SORT_BY } #{ order_by || DEFAULT_ORDER_BY }") }
+	scope :sorted_and_ordered_by, -> (sort_by, order_by) { 
+		sort_by ||= DEFAULT_SORT_BY
+		order_by ||= DEFAULT_ORDER_BY 
+
+		order(sort_by => order_by) 
+	}
 end
