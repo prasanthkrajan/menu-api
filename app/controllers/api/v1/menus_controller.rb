@@ -18,6 +18,14 @@ class Api::V1::MenusController < Api::V1::BaseController
 	end
 
 	def data_scope
-		search_params ? Menu.scoped_by_name(search_params) : Menu
+		if search_params 
+			Menu.scoped_by_name(search_params)
+		else
+			default_scope
+		end
+	end
+
+	def default_scope
+		Menu
 	end
 end
